@@ -1,19 +1,14 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import App from './components/app'
-import './styles/app.scss'
-import { AppContainer } from 'react-hot-loader'
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Router, Route, hashHistory } from 'react-router';
+import AlbumBrowser from './examples/AlbumBrowser';
+import Perf from 'react-addons-perf';
 
-const render = Component => {
-  ReactDOM.render(
-    <AppContainer>
-      <Component />
-    </AppContainer>,
-    document.getElementById('main')
-  )
-}
+window.Perf = Perf;
 
-render(App)
-if (module.hot) {
-  module.hot.accept('./components/app', () => { render(App) })
-}
+ReactDOM.render(
+  <Router history={hashHistory}>
+    <Route path="/(:slug)" component={AlbumBrowser} />
+  </Router>,
+  document.getElementById('content')
+);
